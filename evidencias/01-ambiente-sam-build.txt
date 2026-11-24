@@ -1,0 +1,28 @@
+$ sam --version
+SAM CLI, version 1.174.0
+
+$ docker --version
+Docker version 29.6.2, build dfc4efb
+
+$ docker info --format "ServerVersion={{.ServerVersion}} OSType={{.OSType}} OperatingSystem={{.OperatingSystem}}"
+ServerVersion=29.6.2 OSType=linux OperatingSystem=Docker Desktop
+
+$ sam validate --region us-east-1
+C:\Users\ppfr7\OneDrive\Desktop\atv\template.yaml is a valid SAM Template. This is according to basic SAM Validation, for additional validation, please run with "--lint" option
+
+$ sam build
+Building codeuri: C:\Users\ppfr7\OneDrive\Desktop\atv\hello_world runtime: python3.12 architecture: x86_64 functions: HelloWorldFunction
+ Running PythonPipBuilder:ResolveDependencies
+ Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam\build
+Built Template   : .aws-sam\build\template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke
+[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
+[*] Deploy: sam deploy --guided

@@ -1,14 +1,21 @@
-Pasta destinada às evidências reais de execução local (logs .txt e capturas .png):
-- 01-ambiente-sam-build.txt / .png
-- 02-invoke-evento.txt / .png
-- 03-start-api-sem-warm.txt / .png
-- 04-start-api-warm-lazy.txt / .png
-- 05-timeout-3s-vs-10s.txt / .png
+Índice das evidências reais de execução local (AWS SAM CLI 1.174.0 + Docker Desktop 29.6.2):
 
-STATUS ATUAL: Aguardando desbloqueio manual do AWS SAM CLI e do Docker Desktop.
-Nenhum log ou imagem foi gerado ainda porque a instalação do Amazon.SAM-CLI via winget
-exigiu elevação UAC interativa e o daemon do Docker Desktop (com.docker.service /
-dockerDesktopLinuxEngine) não pôde ser iniciado automaticamente em sessão sem elevação.
+1. 01-ambiente-sam-build.txt / .png
+   Verificação do ambiente (`sam --version`, `docker --version`, `docker info`),
+   validação do template (`sam validate --region us-east-1`) e build (`sam build`).
 
-Após instalar o AWS SAM CLI e iniciar o Docker Desktop manualmente, execute os Passos 2–5
-descritos no README.md e salve aqui os logs e capturas reais.
+2. 02-invoke-evento.txt / .png
+   Passo 3: duas execuções sequenciais de `sam local invoke -e events/pedido.json`
+   com métricas (`Init Duration`, `Duration`, `Billed Duration`) e tempo total de relógio.
+
+3. 03-start-api-sem-warm.txt / .png
+   Passo 4a: `sam local start-api` padrão + 3 chamadas `POST /guias` (`R-002`, `H-Caruaru`),
+   evidenciando `invocacaoNesteAmbiente` = 1, 1, 1 (um contêiner novo por requisição).
+
+4. 04-start-api-warm-lazy.txt / .png
+   Passo 4b: `sam local start-api --warm-containers LAZY` + 3 chamadas `POST /guias`,
+   evidenciando reaproveitamento de contêiner (`invocacaoNesteAmbiente` = 1 -> 2 -> 3).
+
+5. 05-timeout-3s-vs-10s.txt / .png
+   Passo 5: falha de timeout com `Timeout: 3` (`502 Bad Gateway` / `timed out after 3 seconds`)
+   e sucesso após alterar para `Timeout: 10` + `sam build` (`201 Created`, `5122.80 ms`).

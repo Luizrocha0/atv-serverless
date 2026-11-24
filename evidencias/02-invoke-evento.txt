@@ -1,0 +1,30 @@
+=== Execucao 1 (sam local invoke -e events/pedido.json) ===
+$ sam local invoke -e events/pedido.json
+No current session found, using default AWS::AccountId
+Invoking app.lambda_handler (python3.12)
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
+
+Mounting C:\Users\ppfr7\OneDrive\Desktop\atv\.aws-sam\build\HelloWorldFunction as /var/task:ro,delegated, inside runtime container
+SAM_CONTAINER_ID: 93393e39f9fa0399153ecb7f98b518e97ea668f80e5bbba109d120800e7ad5d7
+START RequestId: 1fad488d-f8b7-45e5-b1dc-7339bb7fa696 Version: $LATEST
+END RequestId: 1fad488d-f8b7-45e5-b1dc-7339bb7fa696
+REPORT RequestId: 1fad488d-f8b7-45e5-b1dc-7339bb7fa696	Init Duration: 0.07 ms	Duration: 113.36 ms	Billed Duration: 114 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+{"statusCode": 201, "body": "{\"guia\": \"G-R-001\", \"hospital\": \"H-Recife\", \"bolsas\": [\"O-NEG-0142\"], \"invocacaoNesteAmbiente\": 1}"}
+Wall-clock total: 11863 ms (11.86 s)
+
+=== Execucao 2 (sam local invoke -e events/pedido.json) ===
+$ sam local invoke -e events/pedido.json
+No current session found, using default AWS::AccountId
+Invoking app.lambda_handler (python3.12)
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
+
+Mounting C:\Users\ppfr7\OneDrive\Desktop\atv\.aws-sam\build\HelloWorldFunction as /var/task:ro,delegated, inside runtime container
+SAM_CONTAINER_ID: 08ef7a2b2877777bf30ef16ebf6da38a8187877583322f3d6b328327929e4295
+START RequestId: a83e754c-4187-4924-a1da-a67763083e63 Version: $LATEST
+END RequestId: a83e754c-4187-4924-a1da-a67763083e63
+REPORT RequestId: a83e754c-4187-4924-a1da-a67763083e63	Init Duration: 0.08 ms	Duration: 117.73 ms	Billed Duration: 118 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+{"statusCode": 201, "body": "{\"guia\": \"G-R-001\", \"hospital\": \"H-Recife\", \"bolsas\": [\"O-NEG-0142\"], \"invocacaoNesteAmbiente\": 1}"}
+Wall-clock total: 11947 ms (11.95 s)
+

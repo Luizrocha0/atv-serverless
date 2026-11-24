@@ -1,0 +1,71 @@
+=== Passo 4b: sam local start-api --warm-containers LAZY ===
+$ sam local start-api --warm-containers LAZY
+No current session found, using default AWS::AccountId
+Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
+2026-11-24 11:19:46 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:3000
+2026-11-24 11:19:46 [33mPress CTRL+C to quit[0m
+Invoking app.lambda_handler (python3.12)
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
+
+Mounting C:\Users\ppfr7\OneDrive\Desktop\atv\.aws-sam\build\HelloWorldFunction as /var/task:ro,delegated, inside runtime container
+SAM_CONTAINER_ID: e674b8fb6d18ba5c4850798ac8eb9fc29d0be241d19c5db9d94b2ac5f9576982
+START RequestId: 70e31f03-bd70-4a32-8aef-f74e323f2827 Version: $LATEST
+END RequestId: 70e31f03-bd70-4a32-8aef-f74e323f2827
+REPORT RequestId: 70e31f03-bd70-4a32-8aef-f74e323f2827	Init Duration: 0.07 ms	Duration: 113.98 ms	Billed Duration: 114 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+
+No Content-Type given. Defaulting to 'application/json'.
+2026-11-24 11:19:51 127.0.0.1 - - [24/Nov/2026 11:19:51] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+Invoking app.lambda_handler (python3.12)
+Lambda function 'HelloWorldFunction' is already running
+START RequestId: ff390238-3034-44cc-b263-fd929771cca7 Version: $LATEST
+END RequestId: ff390238-3034-44cc-b263-fd929771cca7
+REPORT RequestId: ff390238-3034-44cc-b263-fd929771cca7	Duration: 2.31 ms	Billed Duration: 3 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+
+No Content-Type given. Defaulting to 'application/json'.
+2026-11-24 11:19:52 127.0.0.1 - - [24/Nov/2026 11:19:52] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+Invoking app.lambda_handler (python3.12)
+Lambda function 'HelloWorldFunction' is already running
+START RequestId: 7efd57ea-0e3c-469a-8345-224573231721 Version: $LATEST
+END RequestId: 7efd57ea-0e3c-469a-8345-224573231721
+REPORT RequestId: 7efd57ea-0e3c-469a-8345-224573231721	Duration: 6.00 ms	Billed Duration: 7 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+
+No Content-Type given. Defaulting to 'application/json'.
+2026-11-24 11:19:53 127.0.0.1 - - [24/Nov/2026 11:19:53] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+
+=== Respostas HTTP (3x POST /guias) ===
+--- Requisicao 1 ---
+$ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-002","hospital":"H-Caruaru"}'
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.1.9 Python/3.13.16
+Date: Tue, 24 Nov 2026 14:19:51 GMT
+Content-Type: application/json
+Content-Length: 87
+Connection: close
+
+{"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 1}
+
+--- Requisicao 2 ---
+$ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-002","hospital":"H-Caruaru"}'
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.1.9 Python/3.13.16
+Date: Tue, 24 Nov 2026 14:19:52 GMT
+Content-Type: application/json
+Content-Length: 87
+Connection: close
+
+{"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 2}
+
+--- Requisicao 3 ---
+$ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-002","hospital":"H-Caruaru"}'
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.1.9 Python/3.13.16
+Date: Tue, 24 Nov 2026 14:19:53 GMT
+Content-Type: application/json
+Content-Length: 87
+Connection: close
+
+{"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 3}
+

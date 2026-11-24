@@ -1,0 +1,80 @@
+=== Passo 5a: Teste com Timeout: 3 (template.yaml) ===
+$ sam local start-api
+No current session found, using default AWS::AccountId
+Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
+2026-11-24 11:20:19 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:3000
+2026-11-24 11:20:19 [33mPress CTRL+C to quit[0m
+Invoking app.lambda_handler (python3.12)
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
+
+Mounting C:\Users\ppfr7\OneDrive\Desktop\atv\.aws-sam\build\HelloWorldFunction as /var/task:ro,delegated, inside runtime container
+SAM_CONTAINER_ID: d154c01acaccb7f7f30ab76b56f6a24b48c040408ba4d76f9dff962ad3c8c58a
+START RequestId: 41864e48-850c-4417-b80e-d49c0e9de846 Version: $LATEST
+Function 'HelloWorldFunction' timed out after 3 seconds
+No response from invoke container for HelloWorldFunction
+Invalid lambda response received: Lambda response must be valid json
+2026-11-24 11:20:31 127.0.0.1 - - [24/Nov/2026 11:20:31] "[35m[1mPOST /guias HTTP/1.1[0m" 502 -
+
+--- Resposta HTTP (Timeout: 3) ---
+$ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-003","demorar":true}'
+HTTP/1.1 502 BAD GATEWAY
+Server: Werkzeug/3.1.9 Python/3.13.16
+Date: Tue, 24 Nov 2026 14:20:31 GMT
+Content-Type: application/json
+Content-Length: 36
+Connection: close
+
+{"message":"Internal server error"}
+
+
+=== Passo 5b: Recompilar e repetir com Timeout: 10 (template.yaml) ===
+$ sam build
+Building codeuri: C:\Users\ppfr7\OneDrive\Desktop\atv\hello_world runtime: python3.12 architecture: x86_64 functions: HelloWorldFunction
+ Running PythonPipBuilder:ResolveDependencies
+ Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam\build
+Built Template   : .aws-sam\build\template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke
+[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
+[*] Deploy: sam deploy --guided
+
+$ sam local start-api
+No current session found, using default AWS::AccountId
+Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
+2026-11-24 11:21:15 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:3000
+2026-11-24 11:21:15 [33mPress CTRL+C to quit[0m
+Invoking app.lambda_handler (python3.12)
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
+
+Mounting C:\Users\ppfr7\OneDrive\Desktop\atv\.aws-sam\build\HelloWorldFunction as /var/task:ro,delegated, inside runtime container
+SAM_CONTAINER_ID: 51673593d70cc32022f38b0db7ce2f9e2d157eab15a9c9246e33c459f790e404
+START RequestId: 636cd256-0eda-4700-8f13-445d98a3bb92 Version: $LATEST
+END RequestId: 636cd256-0eda-4700-8f13-445d98a3bb92
+REPORT RequestId: 636cd256-0eda-4700-8f13-445d98a3bb92	Init Duration: 0.09 ms	Duration: 5122.80 ms	Billed Duration: 5123 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+
+No Content-Type given. Defaulting to 'application/json'.
+2026-11-24 11:21:25 127.0.0.1 - - [24/Nov/2026 11:21:25] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+
+--- Resposta HTTP (Timeout: 10) ---
+$ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-003","demorar":true}'
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.1.9 Python/3.13.16
+Date: Tue, 24 Nov 2026 14:21:25 GMT
+Content-Type: application/json
+Content-Length: 80
+Connection: close
+
+{"guia": "G-R-003", "hospital": null, "bolsas": [], "invocacaoNesteAmbiente": 1}
