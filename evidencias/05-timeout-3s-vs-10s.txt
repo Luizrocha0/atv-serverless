@@ -3,9 +3,9 @@ $ sam local start-api
 No current session found, using default AWS::AccountId
 Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
 You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
-2026-11-24 11:20:19 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-11-24 11:20:19 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
  * Running on http://127.0.0.1:3000
-2026-11-24 11:20:19 [33mPress CTRL+C to quit[0m
+2026-11-24 11:20:19 Press CTRL+C to quit
 Invoking app.lambda_handler (python3.12)
 Local image is up-to-date
 Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
@@ -16,7 +16,7 @@ START RequestId: 41864e48-850c-4417-b80e-d49c0e9de846 Version: $LATEST
 Function 'HelloWorldFunction' timed out after 3 seconds
 No response from invoke container for HelloWorldFunction
 Invalid lambda response received: Lambda response must be valid json
-2026-11-24 11:20:31 127.0.0.1 - - [24/Nov/2026 11:20:31] "[35m[1mPOST /guias HTTP/1.1[0m" 502 -
+2026-11-24 11:20:31 127.0.0.1 - - [24/Nov/2026 11:20:31] "POST /guias HTTP/1.1" 502 -
 
 --- Resposta HTTP (Timeout: 3) ---
 $ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-003","demorar":true}'
@@ -52,9 +52,9 @@ $ sam local start-api
 No current session found, using default AWS::AccountId
 Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
 You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
-2026-11-24 11:21:15 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-11-24 11:21:15 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
  * Running on http://127.0.0.1:3000
-2026-11-24 11:21:15 [33mPress CTRL+C to quit[0m
+2026-11-24 11:21:15 Press CTRL+C to quit
 Invoking app.lambda_handler (python3.12)
 Local image is up-to-date
 Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
@@ -66,7 +66,7 @@ END RequestId: 636cd256-0eda-4700-8f13-445d98a3bb92
 REPORT RequestId: 636cd256-0eda-4700-8f13-445d98a3bb92	Init Duration: 0.09 ms	Duration: 5122.80 ms	Billed Duration: 5123 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
 
 No Content-Type given. Defaulting to 'application/json'.
-2026-11-24 11:21:25 127.0.0.1 - - [24/Nov/2026 11:21:25] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+2026-11-24 11:21:25 127.0.0.1 - - [24/Nov/2026 11:21:25] "POST /guias HTTP/1.1" 201 -
 
 --- Resposta HTTP (Timeout: 10) ---
 $ curl -i -sS -X POST http://127.0.0.1:3000/guias -H "Content-Type: application/json" -d '{"requisicaoId":"R-003","demorar":true}'

@@ -13,7 +13,7 @@
 2. Abra **dois terminais Git Bash** lado a lado (ou superior/inferior) na pasta `c:\Users\ppfr7\OneDrive\Desktop\atv`.
    - **Terminal 1:** comandos de build, `invoke` e servidor `sam local start-api`.
    - **Terminal 2:** chamadas `curl` para `http://127.0.0.1:3000/guias`.
-   - *Dica no Git Bash do Windows:* como o instalador do SAM CLI cria `sam.cmd`, caso `sam` retorne `command not found` no Git Bash, execute `alias sam='sam.cmd'` nos terminais antes de iniciar a gravação (ou use PowerShell no Terminal 1).
+   - *Dica no Git Bash do Windows:* como o instalador do SAM CLI cria `sam.cmd` (que sofre erro de aspas do `cmd.exe` no `--body '{...}'` no Git Bash), execute `alias sam='"/c/Program Files/Amazon/AWSSAMCLI/runtime/python.exe" -m samcli'` nos terminais antes de iniciar a gravação (ou use PowerShell no Terminal 1).
 3. **Importante (estado do repositório após o Passo 5):** como o repositório foi entregue com `Timeout: 10` em `template.yaml` (estado final do Passo 5), antes de começar a gravar o Bloco 3 ajuste temporariamente `Timeout: 10` de volta para `Timeout: 3` no `template.yaml`, rode `sam build` e deixe o `template.yaml` aberto no editor pronto para alterar novamente para `10` durante o Bloco 3.
 
 ---
@@ -25,18 +25,17 @@
 **O que mostrar no Terminal 1:**
 ```bash
 ls -la
-sam build
 mkdir -p events
 sam local generate-event apigateway aws-proxy --method POST --path guias --body '{"requisicaoId":"R-001","hospital":"H-Recife","bolsas":["O-NEG-0142"]}' > events/pedido.json
-# Nota: na versão 1.174.0 do SAM CLI, o generate-event codifica o campo "body" em base64 com
-# "isBase64Encoded": true; para manter a compatibilidade com json.loads(event["body"]) do app.py,
-# o arquivo events/pedido.json do repositório já está com o JSON decodificado e "isBase64Encoded": false.
+# SAM CLI 1.174.0 gera "body" em Base64 ("isBase64Encoded": true); decodifica para json.loads(event.get("body") or "{}") no app.py:
+python -c "import json,base64,pathlib; p=pathlib.Path('events/pedido.json'); d=json.loads(p.read_text('utf-8')); d['body']=base64.b64decode(d['body']).decode('utf-8') if d.get('isBase64Encoded') else d['body']; d['isBase64Encoded']=False; p.write_text(json.dumps(d,indent=2,ensure_ascii=False)+'\n','utf-8')"
+sam build
 sam local invoke -e events/pedido.json
 sam local invoke -e events/pedido.json
 ```
 
 **Fala resumida:**
-> "Olá! Esta é a entrega da Atividade 1 de Serverless pelo Caminho A, usando AWS SAM CLI, Docker Desktop e Python 3.12 para gerar guias de transporte do Rota Vital. Aqui temos `template.yaml` com a rota `POST /guias`, `Timeout` inicial de 3 segundos e `hello_world/app.py`. Compilamos com `sam build` e geramos o evento `events/pedido.json`. Ao rodar `sam local invoke`, na primeira vez o SAM prepara a imagem Docker do runtime e executa a fase `Init` (`Init Duration`). Como cada `sam local invoke` cria um contêiner novo (`SAM_CONTAINER_ID` diferente), `invocacaoNesteAmbiente` permanece `1` e vemos `Init Duration` nas duas chamadas — já com contêiner aquecido na próxima etapa, a inicialização é pulada."
+> "Olá! Esta é a entrega da Atividade 1 de Serverless pelo Caminho A, usando AWS SAM CLI, Docker Desktop e Python 3.12 para gerar guias de transporte do Rota Vital. Aqui temos `template.yaml` com a rota `POST /guias`, `Timeout` inicial de 3 segundos e `hello_world/app.py`. Geramos e decodificamos o evento `events/pedido.json` e compilamos com `sam build`. Ao rodar `sam local invoke`, na primeira vez o SAM prepara a imagem Docker do runtime e executa a fase `Init` (`Init Duration`). Como cada `sam local invoke` cria um contêiner novo (`SAM_CONTAINER_ID` diferente), `invocacaoNesteAmbiente` permanece `1` e vemos `Init Duration` nas duas chamadas — já com contêiner aquecido na próxima etapa, a inicialização é pulada."
 
 ---
 

@@ -3,9 +3,9 @@ $ sam local start-api
 No current session found, using default AWS::AccountId
 Mounting HelloWorldFunction at http://127.0.0.1:3000/guias [POST]
 You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart SAM CLI if you update your AWS SAM template
-2026-11-24 11:19:14 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-11-24 11:19:14 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
  * Running on http://127.0.0.1:3000
-2026-11-24 11:19:14 [33mPress CTRL+C to quit[0m
+2026-11-24 11:19:14 Press CTRL+C to quit
 Invoking app.lambda_handler (python3.12)
 Local image is up-to-date
 Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
@@ -17,7 +17,7 @@ END RequestId: d0f9c8d3-69c8-41a9-98ba-c1a8a87a64e7
 REPORT RequestId: d0f9c8d3-69c8-41a9-98ba-c1a8a87a64e7	Init Duration: 0.11 ms	Duration: 97.52 ms	Billed Duration: 98 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
 
 No Content-Type given. Defaulting to 'application/json'.
-2026-11-24 11:19:19 127.0.0.1 - - [24/Nov/2026 11:19:19] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+2026-11-24 11:19:19 127.0.0.1 - - [24/Nov/2026 11:19:19] "POST /guias HTTP/1.1" 201 -
 Invoking app.lambda_handler (python3.12)
 Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
 
@@ -28,7 +28,7 @@ END RequestId: 974d701e-bbc4-41f0-9eda-f43f0e1c1fb6
 REPORT RequestId: 974d701e-bbc4-41f0-9eda-f43f0e1c1fb6	Init Duration: 0.06 ms	Duration: 111.42 ms	Billed Duration: 112 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
 
 No Content-Type given. Defaulting to 'application/json'.
-2026-11-24 11:19:21 127.0.0.1 - - [24/Nov/2026 11:19:21] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+2026-11-24 11:19:21 127.0.0.1 - - [24/Nov/2026 11:19:21] "POST /guias HTTP/1.1" 201 -
 Invoking app.lambda_handler (python3.12)
 Using local image: public.ecr.aws/lambda/python:3.12-rapid-x86_64.
 
@@ -39,7 +39,7 @@ END RequestId: edd71ab7-9a80-4249-9dad-6e098902b1ae
 REPORT RequestId: edd71ab7-9a80-4249-9dad-6e098902b1ae	Init Duration: 0.11 ms	Duration: 145.05 ms	Billed Duration: 146 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
 
 No Content-Type given. Defaulting to 'application/json'.
-2026-11-24 11:19:24 127.0.0.1 - - [24/Nov/2026 11:19:24] "[35m[1mPOST /guias HTTP/1.1[0m" 201 -
+2026-11-24 11:19:24 127.0.0.1 - - [24/Nov/2026 11:19:24] "POST /guias HTTP/1.1" 201 -
 
 === Respostas HTTP (3x POST /guias) ===
 --- Requisicao 1 ---

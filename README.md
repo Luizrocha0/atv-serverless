@@ -32,26 +32,23 @@ atv/
 
 > **Dicas para Windows (Git Bash vs PowerShell):**
 > 1. Execute os comandos com redirecionamento (`> events/pedido.json`) e `curl` no **Git Bash** (`"C:\Program Files\Git\bin\bash.exe"`), pois o PowerShell 5.1 grava `>` em UTF-16LE (com BOM), remove aspas internas de JSON passadas para binários nativos e mapeia `curl` como alias de `Invoke-WebRequest`.
-> 2. O instalador `Amazon.SAM-CLI` cria `C:\Program Files\Amazon\AWSSAMCLI\bin\sam.cmd`. No PowerShell, `sam` funciona diretamente; no Git Bash, se `sam` não for reconhecido diretamente, use `sam.cmd` ou defina `alias sam='sam.cmd'`.
+> 2. O instalador `Amazon.SAM-CLI` cria `C:\Program Files\Amazon\AWSSAMCLI\bin\sam.cmd`. No PowerShell, `sam` funciona diretamente; no Git Bash, para evitar falhas de aspas do `cmd.exe` em argumentos JSON (como `--body '{...}'`), defina `alias sam='"/c/Program Files/Amazon/AWSSAMCLI/runtime/python.exe" -m samcli'` (ou use `sam.cmd` para `build`/`invoke`/`start-api`).
 
-### 1. Compilar o projeto SAM
-
-```bash
-sam build
-```
-
-### 2. Gerar evento e invocar localmente (Passo 3)
+### 1. Gerar evento e decodificar `body` (Passo 3)
 
 ```bash
 mkdir -p events
 sam local generate-event apigateway aws-proxy --method POST --path guias --body '{"requisicaoId":"R-001","hospital":"H-Recife","bolsas":["O-NEG-0142"]}' > events/pedido.json
+# SAM CLI 1.174.0 gera "body" em Base64 com "isBase64Encoded": true; decodifica para JSON puro:
+python -c "import json,base64,pathlib; p=pathlib.Path('events/pedido.json'); d=json.loads(p.read_text('utf-8')); d['body']=base64.b64decode(d['body']).decode('utf-8') if d.get('isBase64Encoded') else d['body']; d['isBase64Encoded']=False; p.write_text(json.dumps(d,indent=2,ensure_ascii=False)+'\n','utf-8')"
 ```
 
-> **Observação sobre o SAM CLI `1.174.0`:** o comando `sam local generate-event apigateway aws-proxy` gera o campo `"body"` codificado em Base64 com `"isBase64Encoded": true`. Como `hello_world/app.py` (mantido idêntico ao enunciado) faz `json.loads(event.get("body") or "{}")` diretamente, o arquivo `events/pedido.json` deste repositório teve o `body` decodificado para string JSON pura e `"isBase64Encoded": false` para permitir a invocação direta sem erro `JSONDecodeError`.
+> **Observação sobre o SAM CLI `1.174.0`:** o comando `sam local generate-event apigateway aws-proxy` gera o campo `"body"` codificado em Base64 com `"isBase64Encoded": true`. Como `hello_world/app.py` (mantido idêntico ao enunciado) faz `json.loads(event.get("body") or "{}")` diretamente, o comando `python -c` acima decodifica `body` para string JSON pura e define `"isBase64Encoded": false` em `events/pedido.json` antes do `sam build` e da invocação, evitando `JSONDecodeError`.
 
-Em seguida, execute duas vezes:
+### 2. Compilar e invocar localmente duas vezes (Passo 3)
 
 ```bash
+sam build
 sam local invoke -e events/pedido.json
 sam local invoke -e events/pedido.json
 ```
