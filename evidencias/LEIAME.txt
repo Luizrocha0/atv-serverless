@@ -1,0 +1,14 @@
+Pasta destinada às evidências reais de execução local (logs .txt e capturas .png):
+- 01-ambiente-sam-build.txt / .png
+- 02-invoke-evento.txt / .png
+- 03-start-api-sem-warm.txt / .png
+- 04-start-api-warm-lazy.txt / .png
+- 05-timeout-3s-vs-10s.txt / .png
+
+STATUS ATUAL: Aguardando desbloqueio manual do AWS SAM CLI e do Docker Desktop.
+Nenhum log ou imagem foi gerado ainda porque a instalação do Amazon.SAM-CLI via winget
+exigiu elevação UAC interativa e o daemon do Docker Desktop (com.docker.service /
+dockerDesktopLinuxEngine) não pôde ser iniciado automaticamente em sessão sem elevação.
+
+Após instalar o AWS SAM CLI e iniciar o Docker Desktop manualmente, execute os Passos 2–5
+descritos no README.md e salve aqui os logs e capturas reais.

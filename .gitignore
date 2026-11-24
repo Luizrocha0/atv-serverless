@@ -1,0 +1,14 @@
+# AWS SAM build artifacts
+.aws-sam/
+
+# Python caches & virtualenvs
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
